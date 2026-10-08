@@ -1,0 +1,370 @@
+<mxfile host="65bd71144e">
+    <diagram id="resort-uml" name="Resort Management UML">
+        <mxGraphModel dx="1925" dy="1213" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1320" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="account" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff3d6;strokeColor=#9a783e;fontColor=#162e36;" value="&lt;b&gt;&amp;laquo;abstract&amp;raquo; Account&lt;/b&gt;&lt;hr&gt;- username: String&lt;br&gt;- password: String (PBKDF2 hash)&lt;br&gt;- staffId: String&lt;br&gt;- passwordChangeRequired: boolean&lt;br&gt;- administrator: boolean&lt;hr&gt;+ getUsername(): String&lt;br&gt;+ checkPassword(attempt): boolean&lt;br&gt;+ isAdmin(): boolean" vertex="1">
+                    <mxGeometry height="220" width="330" x="40" y="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="admin" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d9eee9;strokeColor=#16685d;fontColor=#162e36;" value="&lt;b&gt;Admin&lt;/b&gt;&lt;hr&gt;+ Admin(username, password)" vertex="1">
+                    <mxGeometry height="80" width="190" x="80" y="290" as="geometry"/>
+                </mxCell>
+                <mxCell id="employee" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d9eee9;strokeColor=#16685d;fontColor=#162e36;" value="&lt;b&gt;Employee&lt;/b&gt;&lt;hr&gt;+ Employee(username, password)" vertex="1">
+                    <mxGeometry height="80" width="190" x="300" y="290" as="geometry"/>
+                </mxCell>
+                <mxCell id="staff" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff3d6;strokeColor=#9a783e;fontColor=#162e36;" value="&lt;b&gt;Staff&lt;/b&gt;&lt;hr&gt;- staffId: String&lt;br&gt;- name: String&lt;br&gt;- role: String&lt;br&gt;- tasks: List&lt;br&gt;&lt;hr&gt;+ assignTask(task)&lt;br&gt;+ updateRoomHousekeepingStatus(room, ready)" vertex="1">
+                    <mxGeometry height="180" width="310" x="450" y="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="task" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff3d6;strokeColor=#9a783e;fontColor=#162e36;" value="&lt;b&gt;Task&lt;/b&gt;&lt;hr&gt;- taskId: String&lt;br&gt;- description: String&lt;br&gt;- taskStatus: TaskStatus&lt;br&gt;- assignedTo: Staff&lt;hr&gt;+ getTaskStatus(): TaskStatus&lt;br&gt;+ setStatus(status): void&lt;br&gt;+ setAssignedTo(staff): void" vertex="1">
+                    <mxGeometry height="150" width="270" x="500" y="290" as="geometry"/>
+                </mxCell>
+                <mxCell id="workflow" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d9eee9;strokeColor=#16685d;fontColor=#162e36;" value="&lt;b&gt;&amp;laquo;abstract&amp;raquo; StaffWorkflow&lt;/b&gt;&lt;hr&gt;+ getRoleName(): String&lt;br&gt;+ getTaskTypes(): TaskType[]&lt;br&gt;+ describeTask(type, details): String" vertex="1">
+                    <mxGeometry height="145" width="320" x="830" y="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="workflows" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d9eee9;strokeColor=#16685d;fontColor=#162e36;" value="&lt;b&gt;Role workflows&lt;/b&gt;&lt;hr&gt;HousekeepingWorkflow&lt;br&gt;MaintenanceWorkflow&lt;br&gt;FrontDeskWorkflow&lt;br&gt;GuestServicesWorkflow&lt;br&gt;GeneralStaffWorkflow" vertex="1">
+                    <mxGeometry height="180" width="320" x="830" y="240" as="geometry"/>
+                </mxCell>
+                <mxCell id="workflowfactory" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8dfd3;strokeColor=#9b3f32;fontColor=#162e36;" value="&lt;b&gt;StaffWorkflowFactory&lt;/b&gt;&lt;hr&gt;+ forStaff(staff): StaffWorkflow" vertex="1">
+                    <mxGeometry height="95" width="320" x="830" y="430" as="geometry"/>
+                </mxCell>
+                <mxCell id="room" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff3d6;strokeColor=#9a783e;fontColor=#162e36;" value="&lt;b&gt;Room (configurable)&lt;/b&gt;&lt;hr&gt;- roomId: String&lt;br&gt;- roomType: String&lt;br&gt;- viewType: String&lt;br&gt;- rate: double&lt;br&gt;- capacity: int&lt;br&gt;- maxExtraGuests: Integer&lt;br&gt;- status: RoomStatus&lt;br&gt;- includedAmenities: List&lt;hr&gt;+ getMaximumGuestCount(): int&lt;br&gt;+ calculateRate(): double&lt;br&gt;+ isAvailable(dates): boolean" vertex="1">
+                    <mxGeometry height="310" width="340" x="40" y="520" as="geometry"/>
+                </mxCell>
+                <mxCell id="roomtypes" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d9eee9;strokeColor=#16685d;fontColor=#162e36;" value="&lt;b&gt;Legacy Room subclasses&lt;/b&gt;&lt;hr&gt;StandardRoom&lt;br&gt;DeluxeRoom&lt;br&gt;FamilyRoom&lt;br&gt;SuiteRoom&lt;br&gt;VillaRoom&lt;br&gt;PavilionRoom&lt;hr&gt;Extend Room for serialization compatibility; the UI also creates configurable Room instances." vertex="1">
+                    <mxGeometry height="250" width="340" x="40" y="870" as="geometry"/>
+                </mxCell>
+                <mxCell id="booking" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff3d6;strokeColor=#9a783e;fontColor=#162e36;" value="&lt;b&gt;Booking&lt;/b&gt;&lt;hr&gt;- bookingId: String&lt;br&gt;- guest: Guest&lt;br&gt;- room: Room&lt;br&gt;- checkInDate: LocalDate&lt;br&gt;- checkOutDate: LocalDate&lt;br&gt;- guestCount: int&lt;br&gt;- status: BookingStatus&lt;br&gt;- addOns: List&lt;br&gt;- addOnQuantities: Map&lt;br&gt;- lateCheckoutSelected: boolean&lt;hr&gt;+ calculateTotal(): double&lt;br&gt;+ getAddOnCharge(): double&lt;br&gt;+ addAddOn(addOn, quantity): void&lt;br&gt;+ checkIn() / checkOut(): void&lt;br&gt;+ reschedule(dates): void" vertex="1">
+                    <mxGeometry height="300" width="340" x="450" y="540" as="geometry"/>
+                </mxCell>
+                <mxCell id="guest" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff3d6;strokeColor=#9a783e;fontColor=#162e36;" value="&lt;b&gt;Guest&lt;/b&gt;&lt;hr&gt;- guestId: String&lt;br&gt;- name: String&lt;br&gt;- contactInfo: String" vertex="1">
+                    <mxGeometry height="110" width="300" x="450" y="850" as="geometry"/>
+                </mxCell>
+                <mxCell id="addon" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff3d6;strokeColor=#9a783e;fontColor=#162e36;" value="&lt;b&gt;AddOn&lt;/b&gt;&lt;hr&gt;- addOnId: String&lt;br&gt;- name: String&lt;br&gt;- price: double&lt;br&gt;- category: AddOnCategory&lt;br&gt;- chargeBasis: AddOnChargeBasis&lt;hr&gt;Price per guest or per booking" vertex="1">
+                    <mxGeometry height="170" width="300" x="850" y="560" as="geometry"/>
+                </mxCell>
+                <mxCell id="datamanager" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8dfd3;strokeColor=#9b3f32;fontColor=#162e36;" value="&lt;b&gt;DataManager&lt;/b&gt;&lt;hr&gt;Singleton application data and ID counters&lt;br&gt;Account, booking, room, staff and add-on operations&lt;hr&gt;Delegates persistence to SqliteDataStore" vertex="1">
+                    <mxGeometry height="180" width="300" x="1250" y="330" as="geometry"/>
+                </mxCell>
+                <mxCell id="bill" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff3d6;strokeColor=#9a783e;fontColor=#162e36;" value="&lt;b&gt;Bill&lt;/b&gt;&lt;hr&gt;- billId: String&lt;br&gt;- booking: Booking&lt;br&gt;- roomCharge: double&lt;br&gt;- addOnCharge: double&lt;br&gt;- extraPersonCharge: double&lt;br&gt;- lateCheckoutCharge: double&lt;br&gt;- totalAmount: double&lt;hr&gt;+ generateBill()&lt;br&gt;+ getTotalAmount(): double" vertex="1">
+                    <mxGeometry height="200" width="300" x="850" y="930" as="geometry"/>
+                </mxCell>
+                <mxCell id="statusEnums" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#eee8f7;strokeColor=#71549a;fontColor=#162e36;" value="&lt;b&gt;Status enums&lt;/b&gt;&lt;hr&gt;BookingStatus&lt;br&gt;RESERVED, CHECKED_IN&lt;br&gt;CHECKED_OUT, CANCELLED&lt;hr&gt;RoomStatus&lt;br&gt;AVAILABLE, OCCUPIED, RESERVED&lt;br&gt;INSPECTION_REQUIRED, HOUSEKEEPING_REQUIRED&lt;br&gt;MAINTENANCE, REPAIR_REQUIRED, ARCHIVED&lt;hr&gt;TaskStatus: PENDING, COMPLETED" vertex="1">
+                    <mxGeometry height="210" width="320" x="1250" y="930" as="geometry"/>
+                </mxCell>
+                <mxCell id="addonCategory" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#eee8f7;strokeColor=#71549a;fontColor=#162e36;" value="&lt;b&gt;Add-on enums&lt;/b&gt;&lt;hr&gt;AddOnCategory: FOOD, ACTIVITY, TRANSPORT,&lt;br&gt;EQUIPMENT, SERVICE, TOURS,&lt;br&gt;WELLNESS, EVENTS, OTHER&lt;hr&gt;AddOnChargeBasis: PER_PERSON, PER_BOOKING" vertex="1">
+                    <mxGeometry height="155" width="300" x="850" y="755" as="geometry"/>
+                </mxCell>
+                <mxCell id="ui" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1effa;strokeColor=#3a6d96;fontColor=#162e36;" value="&lt;b&gt;Application UI&lt;/b&gt;&lt;hr&gt;Main startup and LoginScreen&lt;br&gt;MainMenu navigation with CardLayout&lt;br&gt;Booking, Room and Add-on screens&lt;br&gt;Staff and Account Management screens&lt;br&gt;Theme / OceanButtonUI styling&lt;hr&gt;Login verification uses SwingWorker" vertex="1">
+                    <mxGeometry height="210" width="300" x="1250" y="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="modelPresets" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#eee8f7;strokeColor=#71549a;fontColor=#162e36;" value="&lt;b&gt;ResortConfig&lt;/b&gt;&lt;hr&gt;Reads external config.json&lt;br&gt;Room rates and amenities&lt;br&gt;Add-on preset catalog&lt;hr&gt;Bundled JSON fallback" vertex="1">
+                    <mxGeometry height="150" width="320" x="1250" y="1150" as="geometry"/>
+                </mxCell>
+                <mxCell id="taskType" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#eee8f7;strokeColor=#71549a;fontColor=#162e36;" value="&lt;b&gt;TaskType enum&lt;/b&gt;&lt;hr&gt;Typed role-specific task selections&lt;br&gt;Includes CUSTOM_TASK" vertex="1">
+                    <mxGeometry height="120" width="300" x="850" y="1140" as="geometry"/>
+                </mxCell>
+                <mxCell id="bookingController" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8dfd3;strokeColor=#9b3f32;fontColor=#162e36;" value="&lt;b&gt;BookingController&lt;/b&gt;&lt;hr&gt;+ checkIn(booking)&lt;br&gt;+ checkOutAndBill(booking, lateCheckout)&lt;br&gt;+ calculateLateCheckoutFee(booking)" vertex="1">
+                    <mxGeometry height="135" width="340" x="450" y="1000" as="geometry"/>
+                </mxCell>
+                <mxCell id="staffController" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8dfd3;strokeColor=#9b3f32;fontColor=#162e36;" value="&lt;b&gt;StaffController&lt;/b&gt;&lt;hr&gt;Finds task targets by TaskType&lt;br&gt;Validates and routes room readiness actions" vertex="1">
+                    <mxGeometry height="135" width="340" x="450" y="1150" as="geometry"/>
+                </mxCell>
+                <mxCell id="admininherit" edge="1" parent="1" source="admin" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=0;strokeColor=#52606d;fontColor=#162e36;fontSize=12;labelBackgroundColor=#ffffff;" target="account">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="employeeinherit" edge="1" parent="1" source="employee" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=0;strokeColor=#52606d;fontColor=#162e36;fontSize=12;labelBackgroundColor=#ffffff;" target="account">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="roominherit" edge="1" parent="1" source="roomtypes" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=0;strokeColor=#52606d;fontColor=#162e36;fontSize=12;labelBackgroundColor=#ffffff;" target="room">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="workflowinherit" edge="1" parent="1" source="workflows" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=0;strokeColor=#52606d;fontColor=#162e36;fontSize=12;labelBackgroundColor=#ffffff;" target="workflow">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="stafftask" edge="1" parent="1" source="staff" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=0;strokeColor=#52606d;fontColor=#162e36;fontSize=12;labelBackgroundColor=#ffffff;" target="task" value="assigned tasks">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="workflowfactoryedge" edge="1" parent="1" source="workflowfactory" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=0;strokeColor=#52606d;fontColor=#162e36;fontSize=12;labelBackgroundColor=#ffffff;" target="workflows" value="selects by role">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="bookingroom" edge="1" parent="1" source="booking" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=0;strokeColor=#52606d;fontColor=#162e36;fontSize=12;labelBackgroundColor=#ffffff;" target="room" value="reserves">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="bookingguest" edge="1" parent="1" source="booking" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=0;strokeColor=#52606d;fontColor=#162e36;fontSize=12;labelBackgroundColor=#ffffff;" target="guest" value="for guest">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="bookingaddon" edge="1" parent="1" source="booking" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=0;strokeColor=#52606d;fontColor=#162e36;fontSize=12;labelBackgroundColor=#ffffff;" target="addon" value="includes">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="billbooking" edge="1" parent="1" source="bill" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=0;strokeColor=#52606d;fontColor=#162e36;fontSize=12;labelBackgroundColor=#ffffff;" target="booking" value="bills">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="accountstaff" edge="1" parent="1" source="account" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=0;strokeColor=#52606d;fontColor=#162e36;fontSize=12;labelBackgroundColor=#ffffff;" target="staff" value="optional staff link">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="addoncategoryedge" edge="1" parent="1" source="addon" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=0;strokeColor=#52606d;fontColor=#162e36;fontSize=12;labelBackgroundColor=#ffffff;" target="addonCategory" value="category">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="uimain" edge="1" parent="1" source="ui" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=0;strokeColor=#52606d;fontColor=#162e36;fontSize=12;labelBackgroundColor=#ffffff;dashed=1;" target="datamanager" value="other model operations">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="sqlitestore" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d9eee9;strokeColor=#16685d;fontColor=#162e36;" value="&lt;b&gt;SqliteDataStore&lt;/b&gt;&lt;hr&gt;+ save(database, snapshot): void&lt;br&gt;+ load(database): DataSnapshot&lt;hr&gt;Upserts current records and reconciles removed records" vertex="1">
+                    <mxGeometry height="135" width="300" x="1250" y="590" as="geometry"/>
+                </mxCell>
+                <mxCell id="storage" parent="1" style="shape=cylinder3d;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#e1effa;strokeColor=#3a6d96;fontColor=#162e36;" value="&lt;b&gt;SQLite database&lt;/b&gt;&lt;hr&gt;resortdata.db in user home&lt;br&gt;Relational tables for resort records&lt;hr&gt;Imports resortdata.ser if no database exists" vertex="1">
+                    <mxGeometry height="145" width="300" x="1250" y="755" as="geometry"/>
+                </mxCell>
+                <mxCell id="datamanager-storage" edge="1" parent="1" source="datamanager" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=0;strokeColor=#52606d;fontColor=#162e36;fontSize=12;labelBackgroundColor=#ffffff;" target="sqlitestore" value="delegates load/save">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="sqlitestore-storage" edge="1" parent="1" source="sqlitestore" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=0;strokeColor=#52606d;fontColor=#162e36;fontSize=12;labelBackgroundColor=#ffffff;" target="storage" value="SQL/JDBC">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="ui-booking-controller" edge="1" parent="1" source="ui" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=0;strokeColor=#52606d;fontColor=#162e36;fontSize=12;labelBackgroundColor=#ffffff;dashed=1;" target="bookingController" value="booking actions">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="ui-staff-controller" edge="1" parent="1" source="ui" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=0;strokeColor=#52606d;fontColor=#162e36;fontSize=12;labelBackgroundColor=#ffffff;dashed=1;" target="staffController" value="staff actions">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="booking-controller-model" edge="1" parent="1" source="bookingController" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=0;strokeColor=#52606d;fontColor=#162e36;fontSize=12;labelBackgroundColor=#ffffff;" target="datamanager" value="uses">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="booking-controller-booking" edge="1" parent="1" source="bookingController" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=0;strokeColor=#52606d;fontColor=#162e36;fontSize=12;labelBackgroundColor=#ffffff;" target="booking" value="updates">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="booking-controller-bill" edge="1" parent="1" source="bookingController" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=0;strokeColor=#52606d;fontColor=#162e36;fontSize=12;labelBackgroundColor=#ffffff;" target="bill" value="creates">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="staff-controller-tasktype" edge="1" parent="1" source="staffController" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=0;strokeColor=#52606d;fontColor=#162e36;fontSize=12;labelBackgroundColor=#ffffff;" target="taskType" value="uses">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="staff-controller-model" edge="1" parent="1" source="staffController" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=0;strokeColor=#52606d;fontColor=#162e36;fontSize=12;labelBackgroundColor=#ffffff;" target="datamanager" value="routes domain actions">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+    <diagram id="application-flow" name="Application Flow">
+        <mxGraphModel dx="893" dy="2442" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1500" pageHeight="1880" math="0" shadow="0">
+            <root>
+                <mxCell id="flow0"/>
+                <mxCell id="flow1" parent="flow0"/>
+                <mxCell id="flow-start" parent="flow1" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#d9eee9;strokeColor=#16685d;fontColor=#162e36;" value="Start application" vertex="1">
+                    <mxGeometry height="60" width="200" x="690" y="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="flow-load" parent="flow1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1effa;strokeColor=#3a6d96;fontColor=#162e36;" value="Main loads config.json and SQLite data; imports legacy .ser if needed" vertex="1">
+                    <mxGeometry height="80" width="300" x="640" y="130" as="geometry"/>
+                </mxCell>
+                <mxCell id="flow-loaded" parent="flow1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff3d6;strokeColor=#9a783e;fontColor=#162e36;" value="Data loaded?" vertex="1">
+                    <mxGeometry height="100" width="220" x="680" y="240" as="geometry"/>
+                </mxCell>
+                <mxCell id="flow-load-error" parent="flow1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8dfd3;strokeColor=#9b3f32;fontColor=#162e36;" value="Show startup error and stop" vertex="1">
+                    <mxGeometry height="70" width="260" x="1110" y="255" as="geometry"/>
+                </mxCell>
+                <mxCell id="flow-has-accounts" parent="flow1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff3d6;strokeColor=#9a783e;fontColor=#162e36;" value="Accounts exist?" vertex="1">
+                    <mxGeometry height="100" width="220" x="680" y="385" as="geometry"/>
+                </mxCell>
+                <mxCell id="flow-create-admin" parent="flow1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1effa;strokeColor=#3a6d96;fontColor=#162e36;" value="Create first administrator" vertex="1">
+                    <mxGeometry height="70" width="280" x="240" y="400" as="geometry"/>
+                </mxCell>
+                <mxCell id="flow-admin-valid" parent="flow1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff3d6;strokeColor=#9a783e;fontColor=#162e36;" value="Credentials valid?" vertex="1">
+                    <mxGeometry height="100" width="220" x="270" y="515" as="geometry"/>
+                </mxCell>
+                <mxCell id="flow-admin-save" parent="flow1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1effa;strokeColor=#3a6d96;fontColor=#162e36;" value="Hash password and save account" vertex="1">
+                    <mxGeometry height="70" width="280" x="240" y="660" as="geometry"/>
+                </mxCell>
+                <mxCell id="flow-admin-invalid" parent="flow1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8dfd3;strokeColor=#9b3f32;fontColor=#162e36;" value="Show validation error" vertex="1">
+                    <mxGeometry height="70" width="180" x="40" y="530" as="geometry"/>
+                </mxCell>
+                <mxCell id="flow-login" parent="flow1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1effa;strokeColor=#3a6d96;fontColor=#162e36;" value="Display login screen" vertex="1">
+                    <mxGeometry height="70" width="280" x="650" y="550" as="geometry"/>
+                </mxCell>
+                <mxCell id="flow-authenticate" parent="flow1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1effa;strokeColor=#3a6d96;fontColor=#162e36;" value="LoginScreen verifies credentials in SwingWorker" vertex="1">
+                    <mxGeometry height="80" width="360" x="610" y="670" as="geometry"/>
+                </mxCell>
+                <mxCell id="flow-auth-valid" parent="flow1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff3d6;strokeColor=#9a783e;fontColor=#162e36;" value="Credentials accepted?" vertex="1">
+                    <mxGeometry height="100" width="220" x="680" y="800" as="geometry"/>
+                </mxCell>
+                <mxCell id="flow-login-failed" parent="flow1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8dfd3;strokeColor=#9b3f32;fontColor=#162e36;" value="Show login error" vertex="1">
+                    <mxGeometry height="70" width="200" x="1080" y="815" as="geometry"/>
+                </mxCell>
+                <mxCell id="flow-password-change" parent="flow1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff3d6;strokeColor=#9a783e;fontColor=#162e36;" value="Password change required?" vertex="1">
+                    <mxGeometry height="100" width="220" x="680" y="960" as="geometry"/>
+                </mxCell>
+                <mxCell id="flow-change-save" parent="flow1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1effa;strokeColor=#3a6d96;fontColor=#162e36;" value="Set new password and save" vertex="1">
+                    <mxGeometry height="70" width="260" x="1110" y="975" as="geometry"/>
+                </mxCell>
+                <mxCell id="flow-menu" parent="flow1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1effa;strokeColor=#3a6d96;fontColor=#162e36;" value="Open MainMenu CardLayout" vertex="1">
+                    <mxGeometry height="70" width="280" x="650" y="1120" as="geometry"/>
+                </mxCell>
+                <mxCell id="flow-role" parent="flow1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff3d6;strokeColor=#9a783e;fontColor=#162e36;" value="Choose screens by role and staff link" vertex="1">
+                    <mxGeometry height="100" width="280" x="650" y="1230" as="geometry"/>
+                </mxCell>
+                <mxCell id="flow-admin-ui" parent="flow1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d9eee9;strokeColor=#16685d;fontColor=#162e36;" value="Admin screens: accounts, staff, rooms, bookings, add-ons" vertex="1">
+                    <mxGeometry height="80" width="380" x="160" y="1370" as="geometry"/>
+                </mxCell>
+                <mxCell id="flow-employee-ui" parent="flow1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d9eee9;strokeColor=#16685d;fontColor=#162e36;" value="Employee screens: staff tasks and resort operations" vertex="1">
+                    <mxGeometry height="80" width="380" x="1040" y="1370" as="geometry"/>
+                </mxCell>
+                <mxCell id="flow-action" parent="flow1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1effa;strokeColor=#3a6d96;fontColor=#162e36;" value="Use screens and navigate with CardLayout" vertex="1">
+                    <mxGeometry height="70" width="360" x="610" y="1500" as="geometry"/>
+                </mxCell>
+                <mxCell id="flow-exit" parent="flow1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff3d6;strokeColor=#9a783e;fontColor=#162e36;" value="End session" vertex="1">
+                    <mxGeometry height="100" width="220" x="690" y="1600" as="geometry"/>
+                </mxCell>
+                <mxCell id="flow-save-exit" parent="flow1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1effa;strokeColor=#3a6d96;fontColor=#162e36;" value="Save resort data to SQLite" vertex="1">
+                    <mxGeometry height="70" width="200" x="690" y="1740" as="geometry"/>
+                </mxCell>
+                <mxCell id="flow-stop" parent="flow1" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#d9eee9;strokeColor=#16685d;fontColor=#162e36;" value="Application closed" vertex="1">
+                    <mxGeometry height="60" width="200" x="1160" y="1745" as="geometry"/>
+                </mxCell>
+                <mxCell id="flow-edge-start-load" edge="1" parent="flow1" source="flow-start" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=0;strokeColor=#52606d;fontColor=#162e36;fontSize=12;labelBackgroundColor=#ffffff;" target="flow-load">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="flow-edge-load-check" edge="1" parent="flow1" source="flow-load" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=0;strokeColor=#52606d;fontColor=#162e36;fontSize=12;labelBackgroundColor=#ffffff;" target="flow-loaded">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="flow-edge-load-error" edge="1" parent="flow1" source="flow-loaded" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=0;strokeColor=#52606d;fontColor=#162e36;fontSize=12;labelBackgroundColor=#ffffff;" target="flow-load-error" value="No">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="flow-edge-load-accounts" edge="1" parent="flow1" source="flow-loaded" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=0;strokeColor=#52606d;fontColor=#162e36;fontSize=12;labelBackgroundColor=#ffffff;" target="flow-has-accounts" value="Yes">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="flow-edge-no-accounts" edge="1" parent="flow1" source="flow-has-accounts" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=0;strokeColor=#52606d;fontColor=#162e36;fontSize=12;labelBackgroundColor=#ffffff;" target="flow-create-admin" value="No">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="flow-edge-existing-accounts" edge="1" parent="flow1" source="flow-has-accounts" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=0;strokeColor=#52606d;fontColor=#162e36;fontSize=12;labelBackgroundColor=#ffffff;" target="flow-login" value="Yes">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="flow-edge-create-valid" edge="1" parent="flow1" source="flow-create-admin" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=0;strokeColor=#52606d;fontColor=#162e36;fontSize=12;labelBackgroundColor=#ffffff;" target="flow-admin-valid">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="flow-edge-admin-invalid" edge="1" parent="flow1" source="flow-admin-valid" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=0;strokeColor=#52606d;fontColor=#162e36;fontSize=12;labelBackgroundColor=#ffffff;exitX=0;exitY=0.5;entryX=1;entryY=0.5;exitDx=0;exitDy=0;entryDx=0;entryDy=0;" target="flow-admin-invalid" value="No">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="240" y="565"/>
+                            <mxPoint x="240" y="435"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="flow-edge-invalid-repeat" edge="1" parent="flow1" source="flow-admin-invalid" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=0;strokeColor=#52606d;fontColor=#162e36;fontSize=12;labelBackgroundColor=#ffffff;exitX=0;exitY=0.5;entryX=0;entryY=0.5;exitDx=0;exitDy=0;entryDx=0;entryDy=0;" target="flow-create-admin">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="20" y="565"/>
+                            <mxPoint x="20" y="435"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="flow-edge-admin-save" edge="1" parent="flow1" source="flow-admin-valid" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=0;strokeColor=#52606d;fontColor=#162e36;fontSize=12;labelBackgroundColor=#ffffff;" target="flow-admin-save" value="Yes">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="flow-edge-admin-login" edge="1" parent="flow1" source="flow-admin-save" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=0;strokeColor=#52606d;fontColor=#162e36;fontSize=12;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;entryX=0;entryY=0.5;exitDx=0;exitDy=0;entryDx=0;entryDy=0;" target="flow-login">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="560" y="695"/>
+                            <mxPoint x="560" y="585"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="flow-edge-login-auth" edge="1" parent="flow1" source="flow-login" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=0;strokeColor=#52606d;fontColor=#162e36;fontSize=12;labelBackgroundColor=#ffffff;" target="flow-authenticate">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="flow-edge-auth-check" edge="1" parent="flow1" source="flow-authenticate" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=0;strokeColor=#52606d;fontColor=#162e36;fontSize=12;labelBackgroundColor=#ffffff;" target="flow-auth-valid">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="flow-edge-auth-failed" edge="1" parent="flow1" source="flow-auth-valid" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=0;strokeColor=#52606d;fontColor=#162e36;fontSize=12;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;entryX=0;entryY=0.5;exitDx=0;exitDy=0;entryDx=0;entryDy=0;" target="flow-login-failed" value="No">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="1030"/>
+                            <mxPoint x="850"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="flow-edge-failed-retry" edge="1" parent="flow1" source="flow-login-failed" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=0;strokeColor=#52606d;fontColor=#162e36;fontSize=12;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;entryX=1;entryY=0.5;exitDx=0;exitDy=0;entryDx=0;entryDy=0;" target="flow-login" value="Retry">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="1450" y="850"/>
+                            <mxPoint x="1450" y="585"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="flow-edge-auth-success" edge="1" parent="flow1" source="flow-auth-valid" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=0;strokeColor=#52606d;fontColor=#162e36;fontSize=12;labelBackgroundColor=#ffffff;" target="flow-password-change" value="Yes">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="flow-edge-change-required" edge="1" parent="flow1" source="flow-password-change" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=0;strokeColor=#52606d;fontColor=#162e36;fontSize=12;labelBackgroundColor=#ffffff;" target="flow-change-save" value="Yes">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="flow-edge-change-menu" edge="1" parent="flow1" source="flow-change-save" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=0;strokeColor=#52606d;fontColor=#162e36;fontSize=12;labelBackgroundColor=#ffffff;" target="flow-menu">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="flow-edge-no-change" edge="1" parent="flow1" source="flow-password-change" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=0;strokeColor=#52606d;fontColor=#162e36;fontSize=12;labelBackgroundColor=#ffffff;" target="flow-menu" value="No">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="flow-edge-menu-role" edge="1" parent="flow1" source="flow-menu" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=0;strokeColor=#52606d;fontColor=#162e36;fontSize=12;labelBackgroundColor=#ffffff;" target="flow-role">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="flow-edge-admin-role" edge="1" parent="flow1" source="flow-role" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=0;strokeColor=#52606d;fontColor=#162e36;fontSize=12;labelBackgroundColor=#ffffff;exitX=0;exitY=0.5;entryX=1;entryY=0.5;exitDx=0;exitDy=0;entryDx=0;entryDy=0;" target="flow-admin-ui" value="Admin">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="560" y="1280"/>
+                            <mxPoint x="560" y="1410"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="flow-edge-employee-role" edge="1" parent="flow1" source="flow-role" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=0;strokeColor=#52606d;fontColor=#162e36;fontSize=12;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;entryX=0;entryY=0.5;exitDx=0;exitDy=0;entryDx=0;entryDy=0;" target="flow-employee-ui" value="Employee">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="1020" y="1280"/>
+                            <mxPoint x="1020" y="1410"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="flow-edge-admin-action" edge="1" parent="flow1" source="flow-admin-ui" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=0;strokeColor=#52606d;fontColor=#162e36;fontSize=12;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;entryX=0;entryY=0.5;exitDx=0;exitDy=0;entryDx=0;entryDy=0;" target="flow-action">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="350" y="1480"/>
+                            <mxPoint x="570" y="1480"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="flow-edge-employee-action" edge="1" parent="flow1" source="flow-employee-ui" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=0;strokeColor=#52606d;fontColor=#162e36;fontSize=12;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;entryX=1;entryY=0.5;exitDx=0;exitDy=0;entryDx=0;entryDy=0;" target="flow-action">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="1230" y="1480"/>
+                            <mxPoint x="990" y="1480"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="flow-edge-action-exit" edge="1" parent="flow1" source="flow-action" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=0;strokeColor=#52606d;fontColor=#162e36;fontSize=12;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;entryX=0.5;entryY=0;exitDx=0;exitDy=0;entryDx=0;entryDy=0;" target="flow-exit">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="flow-edge-continue" edge="1" parent="flow1" source="flow-exit" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=0;strokeColor=#52606d;fontColor=#162e36;fontSize=12;labelBackgroundColor=#ffffff;" target="flow-action" value="Continue">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="flow-edge-exit-save" edge="1" parent="flow1" source="flow-exit" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=0;strokeColor=#52606d;fontColor=#162e36;fontSize=12;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;entryX=0.5;entryY=0;exitDx=0;exitDy=0;entryDx=0;entryDy=0;" target="flow-save-exit" value="Logout or close">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="flow-edge-save-logout" edge="1" parent="flow1" source="flow-save-exit" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=0;strokeColor=#52606d;fontColor=#162e36;fontSize=12;labelBackgroundColor=#ffffff;exitX=0;exitY=0.5;entryX=1;entryY=0.5;exitDx=0;exitDy=0;entryDx=0;entryDy=0;" target="flow-logged-out" value="Logout">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="650" y="1775"/>
+                            <mxPoint x="510" y="1775"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="flow-edge-save-stop" edge="1" parent="flow1" source="flow-save-exit" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=0;strokeColor=#52606d;fontColor=#162e36;fontSize=12;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;entryX=0;entryY=0.5;exitDx=0;exitDy=0;entryDx=0;entryDy=0;" target="flow-stop" value="Close">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="930" y="1775"/>
+                            <mxPoint x="1120" y="1775"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="flow-logged-out" parent="flow1" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#d9eee9;strokeColor=#16685d;fontColor=#162e36;" value="Return to LoginScreen" vertex="1">
+                    <mxGeometry height="70" width="220" x="200" y="1745" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
